@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class HerbalRemedy {
     public static void main(String[] args) {
@@ -48,12 +46,12 @@ public class HerbalRemedy {
         String[] sections = {"Description", "Benefits", "Uses", "Effects"};
         StringBuilder remedyInfo = new StringBuilder();
         for (String section : sections) {
-            Pattern pattern = Pattern.compile(section + ":\\s*(.*)");
-            Matcher matcher = pattern.matcher(content);
-            if (matcher.find()) {
-                remedyInfo.append(section).append(": ").append(matcher.group(1).trim()).append("\n");
-            } else {
-                System.out.println("No match found for section: " + section);
+            String pattern = section + ":\\s*(.*)";
+            String[] lines = content.split("\n");
+            for (String line : lines) {
+                if (line.contains(pattern)) {
+                    remedyInfo.append(section).append(": ").append(line.split(":")[1].trim()).append("\n");
+                }
             }
         }
 
