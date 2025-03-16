@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Module</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Health Module</h1>
+    <div class="container">
+        <div class="module-section">
+            <h2>Herbal Remedy</h2>
+            <button id="herbal-remedy-btn">Get Herbal Remedy</button>
+        </div>
+        <div class="module-section">
+            <h2>Disease</h2>
+            <button id="disease-btn">Get Disease Information</button>
+        </div>
+        <div class="module-section">
+            <h2>Health Tips</h2>
+            <button id="health-tips-btn">Get Health Tips</button>
+        </div>
+        <div class="result-section">
+            <h2 id="result-header">Result</h2>
+            <div id="content"></div>
+        </div>
+    </div>
+
+    <script>
+        const herbalRemedyBtn = document.getElementById('herbal-remedy-btn');
+        const diseaseBtn = document.getElementById('disease-btn');
+        const healthTipsBtn = document.getElementById('health-tips-btn');
+        const contentDiv = document.getElementById('content');
+        const resultHeader = document.getElementById('result-header');
+
+        herbalRemedyBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:8000/herbalRemedy', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.text();
+                    contentDiv.innerHTML = data;
+                    resultHeader.textContent = 'Herbal Remedy Result';
+                } else {
+                    contentDiv.innerHTML = `<h2>Error</h2><p>Failed to fetch data</p>`;
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<h2>Error</h2><p>${error.message}</p>`;
+            }
+        });
+
+        diseaseBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:8000/disease', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.text();
+                    contentDiv.innerHTML = data;
+                    resultHeader.textContent = 'Disease Result';
+                } else {
+                    contentDiv.innerHTML = `<h2>Error</h2><p>Failed to fetch data</p>`;
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<h2>Error</h2><p>${error.message}</p>`;
+            }
+        });
+
+        healthTipsBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:8000/healthTips', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.text();
+                    contentDiv.innerHTML = data;
+                    resultHeader.textContent = 'Health Tips Result';
+                } else {
+                    contentDiv.innerHTML = `<h2>Error</h2><p>Failed to fetch data</p>`;
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<h2>Error</h2><p>${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
