@@ -1,0 +1,118 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class UserRegistration {
+    private static final String FILE_NAME = "users.txt";
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            
+            System.out.print("Choose an option: ");
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    register(scanner);
+                    break;
+                case 2:
+                    login(scanner);
+                    break;
+                
+                default:
+                    System.out.println("Invalid option. Please choose again.");
+            }
+        }
+    }
+
+    private static void register(Scanner scanner) {
+        System.out.print("Enter username: ");
+        String username = scanner.next();
+
+        String password = getPassword(scanner);
+
+        if (password != null) {
+            System.out.print("Confirm password: ");
+            String confirmPassword = scanner.next();
+
+            if (password.equals(confirmPassword)) {
+                try {
+                    FileWriter writer = new FileWriter(FILE_NAME, true);
+                    writer.write(username + ":" + password + "\n");
+                    writer.close();
+                    System.out.println("Registration successful!");
+                } catch (IOException e) {
+                    System.out.println("Error registering user: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Passwords do not match. Please try again.");
+            }
+        }
+    }
+
+    private static String getPassword(Scanner scanner) {
+        while (true) {
+            System.out.print("Enter password (at least 8 characters, 1 uppercase letter, 1 special character): ");
+            String password = scanner.next();
+
+            if (isValidPassword(password)) {
+                return password;
+            } else {
+                System.out.println("Password does not meet the requirements. Please try again.");
+            }
+        }
+    }
+
+    private static boolean isValidPassword(String password) {
+        if (password.length() < 8) {
+            return false;
+        }
+
+        boolean hasUppercase = false;
+        boolean hasSpecialChar = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUppercase = true;
+            }
+
+            if (!Character.isLetterOrDigit(c)) {
+                hasSpecialChar = true;
+            }
+        }
+
+        return hasUppercase && hasSpecialChar;
+    }
+
+    private static void login(Scanner scanner) {
+        System.out.print("Enter username: ");
+        String username = scanner.next();
+
+        System.out.print("Enter password: ");
+        String password = scanner.next();
+
+        try {
+            File file = new File(FILE_NAME);
+            Scanner fileScanner = new Scanner(file);
+
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] credentials = line.split(":");
+
+                if (credentials[0].equals(username) && credentials[1].equals(password)) {
+                    System.out.println("Login successful!");
+                    return;
+                }
+            }
+
+            System.out.println("Invalid username or password. Please try again.");
+        } catch (IOException e) {
+            System.out.println("Error logging in: " + e.getMessage());
+        }
+    }
+}
