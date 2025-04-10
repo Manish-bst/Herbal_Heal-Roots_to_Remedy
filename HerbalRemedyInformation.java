@@ -7,7 +7,6 @@ public class HerbalRemedyInformation {
 
     // Predefined list of herb URLs based on herb names
     private static final String WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/";
-
     // Method to fetch herb information from predefined sources
     public String getHerbInformation(String herbName) {
         try {
