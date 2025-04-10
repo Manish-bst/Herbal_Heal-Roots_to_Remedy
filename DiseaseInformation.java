@@ -59,7 +59,6 @@ public class DiseaseInformation {
         // Input disease name from the user
         System.out.println("Enter disease name: ");
         String diseaseName = scanner.nextLine().trim();  // Trim to avoid leading/trailing spaces
-
         // Fetch and display disease information
         String info = diseaseInfo.getDiseaseInformation(diseaseName);
         System.out.println("Disease Information: ");
