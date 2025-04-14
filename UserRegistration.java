@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class UserRegistration {
     private static final String FILE_NAME = "users.txt";
     private static boolean isLoggedIn = false;
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
