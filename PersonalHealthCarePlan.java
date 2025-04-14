@@ -6,7 +6,6 @@ import com.itextpdf.text.pdf.*;
 
 public class PersonalHealthCarePlan {
     private static final String FILE_NAME = "healthcare_plan.txt";
-
     private static Map<String, String> diseases = new HashMap<>();
     private static Map<String, String> remedies = new HashMap<>();
     private static Map<String, String> remedyDescriptions = new HashMap<>();
