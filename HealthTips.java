@@ -11,7 +11,7 @@ import java.io.File;
                  file.createNewFile();
                  FileWriter writer = new FileWriter(file);
                  writer.write("Health Tips for Various Infections\n\n");
- 
+
                  // Bacterial Infections
                  writer.write("Bacterial Infections:\n");
                  writer.write("1. Wash your hands regularly to prevent the spread of bacteria\n");
