@@ -13,7 +13,7 @@ public class HerbalRemedyInformation {
             // Create the URL for Wikipedia by appending the herb name
             String wikipediaUrl = WIKIPEDIA_URL + herbName.replaceAll(" ", "_");  // Replace spaces with underscores for Wikipedia
             System.out.println("Fetching data from URL: " + wikipediaUrl);
-            
+        
             // Try to fetch data from Wikipedia
             String herbInfo = fetchHerbInfoFromWikipedia(wikipediaUrl);
             if (!herbInfo.isEmpty()) {
