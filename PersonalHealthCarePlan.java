@@ -25,7 +25,6 @@ public class PersonalHealthCarePlan {
     public static void main(String[] args) {
         createFile();
         loadData();
-
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to the Personal Health Care Plan!");
