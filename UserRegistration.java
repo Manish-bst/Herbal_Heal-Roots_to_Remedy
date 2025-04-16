@@ -16,7 +16,6 @@ public class UserRegistration {
             
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
-
             switch (option) {
                 case 1:
                     register(scanner);
