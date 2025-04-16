@@ -20,7 +20,6 @@ public class MainMenu {
             System.out.println("7. Exit");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
-
             switch (option) {
                 case 1:
                     SymptomChecker symptomChecker = new SymptomChecker();
