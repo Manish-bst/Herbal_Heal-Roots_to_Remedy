@@ -7,7 +7,6 @@ public class MainMenu {
         // Run the login code
         UserRegistration userRegistration = new UserRegistration();
         userRegistration.main(new String[0]);
-
         // Display the main menu
         while (true) {
             System.out.println("Main Menu");
