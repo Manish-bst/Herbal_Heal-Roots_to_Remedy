@@ -9,7 +9,6 @@ public class UserRegistration {
     private static boolean isLoggedIn = false;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         while (!isLoggedIn) {
             System.out.println("1. Register");
             System.out.println("2. Login");
