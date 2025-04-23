@@ -1,66 +1,114 @@
-import java.util.*;
+package com.mycompany.herbal_heal_roots_to_remedy;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 public class HerbalRemedyInformation {
-    // Predefined list of herb URLs based on herb names
     private static final String WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/";
-    // Method to fetch herb information from predefined sources
-    public String getHerbInformation(String herbName) {
-        try {
-            // Create the URL for Wikipedia by appending the herb name
-            String wikipediaUrl = WIKIPEDIA_URL + herbName.replaceAll(" ", "_");  // Replace spaces with underscores for Wikipedia
-            System.out.println("Fetching data from URL: " + wikipediaUrl);
-        
-            // Try to fetch data from Wikipedia
-            String herbInfo = fetchHerbInfoFromWikipedia(wikipediaUrl);
-            if (!herbInfo.isEmpty()) {
-                return herbInfo;
+
+    public void createHerbalRemedyInformationPanel(JTabbedPane tabbedPane) {
+        JPanel herbalRemedyPanel = new JPanel();
+        herbalRemedyPanel.setLayout(new BorderLayout());
+        herbalRemedyPanel.setBackground(Color.decode("#C9E4CA")); // Light greenish color
+
+        // Top input panel
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new FlowLayout());
+        topPanel.setBackground(Color.decode("#F7DC6F")); // Light orangeish color
+
+        JLabel herbLabel = new JLabel("Enter Herb Name:");
+        herbLabel.setForeground(Color.decode("#008000")); // Dark green color
+        JTextField herbField = new JTextField(20);
+        JButton fetchHerbButton = new JButton("Fetch Herb Information");
+        fetchHerbButton.setBackground(Color.decode("#4CAF50")); // Green color
+        fetchHerbButton.setForeground(Color.WHITE);
+
+        topPanel.add(herbLabel);
+        topPanel.add(herbField);
+        topPanel.add(fetchHerbButton);
+
+        // Result area
+        JTextArea resultTextArea = new JTextArea();
+        resultTextArea.setEditable(false);
+        resultTextArea.setLineWrap(true);
+        resultTextArea.setWrapStyleWord(true);
+        resultTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        resultTextArea.setForeground(Color.decode("#333333")); // Dark gray color
+
+        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        herbalRemedyPanel.add(topPanel, BorderLayout.NORTH);
+        herbalRemedyPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add action listener to fetch herb button
+        fetchHerbButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String herbName = herbField.getText();
+                if (!herbName.isEmpty()) {
+                    resultTextArea.setText("Fetching data for: " + herbName + "...\n");
+                    SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
+
+                        @Override
+                        protected String doInBackground() {
+                            return getHerbInformation(herbName);
+                        }
+
+                        @Override
+                        protected void done() {
+                            try {
+                                resultTextArea.setText(get());
+                            } catch (Exception ex) {
+                                resultTextArea.setText("Error: " + ex.getMessage());
+                            }
+                        }
+                    };
+                    worker.execute();
+                } else {
+                    resultTextArea.setText("Please enter a herb name.");
+                }
             }
+        });
 
-            // If no valid info from Wikipedia, you can add more sources or logic for fetching info from other websites
-            return "No detailed herb information found.";
+        tabbedPane.addTab("Herbal Remedy Information", herbalRemedyPanel);
+    }
 
+    private String getHerbInformation(String herbName) {
+        try {
+            String wikipediaUrl = WIKIPEDIA_URL + herbName.replaceAll(" ", "_");
+            return fetchHerbInfoFromWikipedia(wikipediaUrl);
         } catch (Exception e) {
-            System.out.println("Error occurred: " + e.getMessage());
-            return "Error: Unable to fetch herb information.";
+            return "Error: Unable to fetch herb information. " + e.getMessage();
         }
     }
 
-    // Fetch herb information from Wikipedia
     private String fetchHerbInfoFromWikipedia(String url) {
         try {
-            // Connect to Wikipedia and fetch the document
             Document doc = Jsoup.connect(url).get();
-
-            // Extract content from the first paragraph of the main content area (the first <p> tag)
             Elements content = doc.select("div.mw-parser-output > p");
             if (!content.isEmpty()) {
                 StringBuilder herbDescription = new StringBuilder();
                 for (org.jsoup.nodes.Element p : content) {
-                    herbDescription.append(p.text()).append("\n");
+                    String text = p.text().trim();
+                    if (!text.isEmpty()) {
+                        herbDescription.append(text).append("\n\n");
+                        // Show only first 3 paragraphs to keep it concise
+                        if (herbDescription.toString().split("\n\n").length >= 3) {
+                            break;
+                        }
+                    }
                 }
                 return herbDescription.toString();
             }
-            return "";  // If no content found, return empty
+            return "No detailed information found for this herb.";
         } catch (Exception e) {
-            System.out.println("Error occurred while fetching from Wikipedia: " + e.getMessage());
-            return "";  // Return empty if there is an issue
+            return "Error occurred while fetching from Wikipedia: " + e.getMessage();
         }
-    }
-
-    public static void main(String[] args) {
-        HerbalRemedyInformation herbInfo = new HerbalRemedyInformation();
-        Scanner scanner = new Scanner(System.in);
-
-        // Input herb name from the user
-        System.out.println("Enter herb name: ");
-        String herbName = scanner.nextLine().trim();  // Trim to avoid leading/trailing spaces
-
-        // Fetch and display herb information
-        String info = herbInfo.getHerbInformation(herbName);
-        System.out.println("Herb Information: ");
-        System.out.println(info);  // Display the fetched information
     }
 }
