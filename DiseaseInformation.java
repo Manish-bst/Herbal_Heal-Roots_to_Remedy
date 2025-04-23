@@ -1,67 +1,116 @@
-import java.util.*;
+package com.mycompany.herbal_heal_roots_to_remedy;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 public class DiseaseInformation {
-
-    // Predefined base URL for Wikipedia
     private static final String WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/";
 
-    // Method to fetch disease information from predefined sources
+    public void createDiseaseInformationPanel(JTabbedPane tabbedPane) {
+        JPanel diseaseInfoPanel = new JPanel();
+        diseaseInfoPanel.setLayout(new BorderLayout());
+        diseaseInfoPanel.setBackground(Color.decode("#C9E4CA")); // Light greenish color
+
+        // Top input panel
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new FlowLayout());
+        topPanel.setBackground(Color.decode("#F7DC6F")); // Light orangeish color
+
+        JLabel diseaseLabel = new JLabel("Enter Disease Name:");
+        diseaseLabel.setForeground(Color.decode("#008000")); // Dark green color
+        JTextField diseaseField = new JTextField(20);
+        JButton fetchButton = new JButton("Fetch Information");
+        fetchButton.setBackground(Color.decode("#4CAF50")); // Green color
+        fetchButton.setForeground(Color.WHITE);
+
+        topPanel.add(diseaseLabel);
+        topPanel.add(diseaseField);
+        topPanel.add(fetchButton);
+
+        // Result area
+        JTextArea resultTextArea = new JTextArea();
+        resultTextArea.setEditable(false);
+        resultTextArea.setLineWrap(true);
+        resultTextArea.setWrapStyleWord(true);
+        resultTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        resultTextArea.setForeground(Color.decode("#333333")); // Dark gray color
+
+        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        diseaseInfoPanel.add(topPanel, BorderLayout.NORTH);
+        diseaseInfoPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add action listener to fetch button
+        fetchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String diseaseName = diseaseField.getText();
+                if (!diseaseName.isEmpty()) {
+                    fetchDiseaseInformationAsync(diseaseName, resultTextArea);
+                } else {
+                    JOptionPane.showMessageDialog(diseaseInfoPanel,
+                            "Please enter a disease name.",
+                            "Input Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+
+        tabbedPane.addTab("Disease Information", diseaseInfoPanel);
+    }
+
+    // Asynchronous fetch using SwingWorker (Java 8 compatible)
+    private void fetchDiseaseInformationAsync(String diseaseName, JTextArea resultTextArea) {
+        resultTextArea.setText("Fetching information for: " + diseaseName + "...\n");
+
+        SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
+            @Override
+            protected String doInBackground() {
+                return getDiseaseInformation(diseaseName);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    String result = get();
+                    resultTextArea.setText(result);
+                } catch (Exception ex) {
+                    resultTextArea.setText("Error fetching data: " + ex.getMessage());
+                }
+            }
+        };
+
+        worker.execute();
+    }
+
+    // Method to fetch disease info from Wikipedia
     public String getDiseaseInformation(String diseaseName) {
         try {
-            // Create the URL for Wikipedia by appending the disease name
-            String wikipediaUrl = WIKIPEDIA_URL + diseaseName.replaceAll(" ", "_");  // Replace spaces with underscores for Wikipedia
-            System.out.println("Fetching data from URL: " + wikipediaUrl);
-            
-            // Fetch and return the entire information about the disease
-            String diseaseInfo = fetchDiseaseInfoFromWikipedia(wikipediaUrl);
-            if (!diseaseInfo.isEmpty()) {
-                return diseaseInfo;
-            }
-
-            // If no valid info from Wikipedia, return a default message
-            return "No detailed disease information found.";
-
-        } catch (Exception e) {
-            System.out.println("Error occurred: " + e.getMessage());
-            return "Error: Unable to fetch disease information.";
-        }
-    }
-
-    // Fetch complete disease information from Wikipedia
-    private String fetchDiseaseInfoFromWikipedia(String url) {
-        try {
-            // Connect to Wikipedia and fetch the document
+            String url = WIKIPEDIA_URL + diseaseName.replaceAll(" ", "_");
             Document doc = Jsoup.connect(url).get();
+            Elements content = doc.select("div.mw-parser-output > p");
 
-            // Extract the entire content of the disease page
-            Elements content = doc.select("div.mw-parser-output > p");  // Select paragraphs inside the content area
             if (!content.isEmpty()) {
-                StringBuilder diseaseDescription = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 for (org.jsoup.nodes.Element p : content) {
-                    diseaseDescription.append(p.text()).append("\n");  // Append each paragraph's text
+                    String text = p.text().trim();
+                    if (!text.isEmpty()) {
+                        sb.append(text).append("\n\n");
+                        if (sb.length() > 1000) break; // Limit output for readability
+                    }
                 }
-                return diseaseDescription.toString();
+                return sb.toString();
             }
-            return "";  // If no content found, return empty
-        } catch (Exception e) {
-            System.out.println("Error occurred while fetching from Wikipedia: " + e.getMessage());
-            return "";  // Return empty if there is an issue
+            return "No detailed disease information found.";
+        } catch (IOException e) {
+            return "Error: Unable to fetch disease information.\n" + e.getMessage();
         }
-    }
-
-    public static void main(String[] args) {
-        DiseaseInformation diseaseInfo = new DiseaseInformation();
-        Scanner scanner = new Scanner(System.in);
-
-        // Input disease name from the user
-        System.out.println("Enter disease name: ");
-        String diseaseName = scanner.nextLine().trim();  // Trim to avoid leading/trailing spaces
-        // Fetch and display disease information
-        String info = diseaseInfo.getDiseaseInformation(diseaseName);
-        System.out.println("Disease Information: ");
-        System.out.println(info);  // Display the fetched information
     }
 }
