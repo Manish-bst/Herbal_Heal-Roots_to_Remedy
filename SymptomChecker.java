@@ -1,4 +1,9 @@
+package com.mycompany.herbal_heal_roots_to_remedy;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
@@ -7,67 +12,77 @@ public class SymptomChecker {
 
     private static Map<String, String> symptoms = new HashMap<>();
     private static Map<String, String> remedies = new HashMap<>();
-    private static Map<String, List<String>> symptomRemedyMapping = new HashMap<>();
+    private static Map<String, java.util.List<String>> symptomRemedyMapping = new HashMap<>();
     private static Map<String, String> remedyUses = new HashMap<>();
     private static Map<String, String> remedyTime = new HashMap<>();
 
-    public static void main(String[] args) {
-        createFile();
+    private JCheckBox[] symptomCheckBoxes;
+    private JButton submitButton;
+    private JTextArea resultTextArea;
 
+    public void createSymptomCheckerPanel(JTabbedPane tabbedPane) {
         loadSymptoms();
         loadRemedies();
         loadRemedyUses();
         loadRemedyTime();
         loadSymptomRemedyMapping();
 
-        Scanner scanner = new Scanner(System.in);
+        JPanel symptomCheckerPanel = new JPanel();
+        symptomCheckerPanel.setLayout(new BorderLayout());
+        symptomCheckerPanel.setBackground(Color.decode("#C9E4CA")); // Light greenish color
 
-        System.out.println("Welcome to the Symptom Checker!");
-        System.out.println("Please answer the following questions to get a personalized health assessment.");
+        JPanel symptomPanel = new JPanel();
+        symptomPanel.setLayout(new BoxLayout(symptomPanel, BoxLayout.Y_AXIS));
+        symptomPanel.setBackground(Color.decode("#F7DC6F")); // Light orangeish color
 
-        List<String> userSymptoms = new ArrayList<>();
-
+        symptomCheckBoxes = new JCheckBox[symptoms.size()];
+        int i = 0;
         for (String symptom : symptoms.keySet()) {
-            System.out.println("Do you have " + symptom + "? (" + symptoms.get(symptom) + ")");
-            System.out.println("Yes/No");
-            String response = scanner.nextLine();
-
-            if (response.equalsIgnoreCase("yes")) {
-                userSymptoms.add(symptom);
-            }
+            symptomCheckBoxes[i] = new JCheckBox(symptom + " - " + symptoms.get(symptom));
+            symptomCheckBoxes[i].setForeground(Color.decode("#333333")); // Dark gray color
+            symptomPanel.add(symptomCheckBoxes[i]);
+            i++;
         }
 
-        List<String> predictedDiseases = predictDisease(userSymptoms);
-        List<String> recommendedRemedies = getRecommendedRemedies(predictedDiseases);
+        symptomCheckerPanel.add(new JScrollPane(symptomPanel), BorderLayout.CENTER);
 
-        System.out.println("Recommended herbal remedies:");
-        for (String remedy : recommendedRemedies) {
-            System.out.println("Remedy: " + remedies.get(remedy));
-            System.out.println("Use: " + remedyUses.get(remedy));
-            System.out.println("Time to consume: " + remedyTime.get(remedy));
-        }
+        submitButton = new JButton("Submit");
+        submitButton.setBackground(Color.decode("#4CAF50")); // Green color
+        submitButton.setForeground(Color.WHITE);
+        submitButton.addActionListener(new SubmitActionListener());
+        symptomCheckerPanel.add(submitButton, BorderLayout.SOUTH);
+
+        resultTextArea = new JTextArea(10, 40);
+        resultTextArea.setEditable(false);
+        resultTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        resultTextArea.setForeground(Color.decode("#333333")); // Dark gray color
+        symptomCheckerPanel.add(new JScrollPane(resultTextArea), BorderLayout.EAST);
+
+        tabbedPane.addTab("Symptom Checker", symptomCheckerPanel);
     }
 
-    private static void createFile() {
-        try {
-            File symptomFile = new File(SYMPTOM_FILE);
-            if (!symptomFile.exists()) {
-                symptomFile.createNewFile();
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(symptomFile))) {
-                    writer.write("headache, Pain in the head, ginger, turmeric, Relieves pain and reduces inflammation, Morning and evening\n");
-                    writer.write("fever, Elevated body temperature, ginger, honey, Reduces fever and soothes the throat, Every 4 hours\n");
-                    writer.write("cough, Coughing, honey, turmeric, Soothes the throat and reduces coughing, Before bed\n");
-                    writer.write("fatigue, Feeling tired or weak, peppermint, chamomile, Boosts energy and promotes relaxation, Afternoon\n");
-                    writer.write("nausea, Feeling queasy or sick to the stomach, ginger, peppermint, Relieves nausea and soothes the stomach, As needed\n");
-                    writer.write("diarrhea, Loose or watery stools, chamomile, lavender, Soothes the stomach and reduces diarrhea, After meals\n");
-                    writer.write("constipation, Difficulty passing stools, garlic, onion, Stimulates digestion and relieves constipation, Morning\n");
-                    writer.write("abdominal pain, Pain in the abdomen, cayenne pepper, ginger, Relieves pain and reduces inflammation, As needed\n");
-                    writer.write("chest pain, Pain in the chest, garlic, turmeric, Relieves pain and reduces inflammation, As needed\n");
-                    writer.write("shortness of breath, Difficulty breathing, eucalyptus, peppermint, Relieves congestion and promotes breathing, As needed\n");
+    private class SubmitActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            java.util.List<String> userSymptoms = new ArrayList<>();
+            for (int i = 0; i < symptomCheckBoxes.length; i++) {
+                if (symptomCheckBoxes[i].isSelected()) {
+                    userSymptoms.add(symptoms.keySet().toArray()[i].toString());
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Error creating file: " + e.getMessage());
+
+            java.util.List<String> predictedDiseases = predictDisease(userSymptoms);
+            java.util.List<String> recommendedRemedies = getRecommendedRemedies(predictedDiseases);
+
+            StringBuilder result = new StringBuilder();
+            result.append("Recommended herbal remedies:\n");
+            for (String remedy : recommendedRemedies) {
+                result.append("Remedy: ").append(remedies.get(remedy)).append("\n");
+                result.append("Use: ").append(remedyUses.get(remedy)).append("\n");
+                result.append("Time to consume: ").append(remedyTime.get(remedy)).append("\n\n");
+            }
+
+            resultTextArea.setText(result.toString());
         }
     }
 
@@ -100,7 +115,7 @@ public class SymptomChecker {
         try (BufferedReader reader = new BufferedReader(new FileReader(SYMPTOM_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
+                String[] parts = line.split (",");
                 remedyUses.put(parts[2].trim(), parts[4].trim());
                 remedyUses.put(parts[3].trim(), parts[4].trim());
             }
@@ -131,10 +146,7 @@ public class SymptomChecker {
                 String remedy1 = parts[2].trim();
                 String remedy2 = parts[3].trim();
 
-                if (!symptomRemedyMapping.containsKey(disease)) {
-                    symptomRemedyMapping.put(disease, new ArrayList<>());
-                }
-
+                symptomRemedyMapping.putIfAbsent(disease, new ArrayList<>());
                 symptomRemedyMapping.get(disease).add(remedy1);
                 symptomRemedyMapping.get(disease).add(remedy2);
             }
@@ -143,8 +155,8 @@ public class SymptomChecker {
         }
     }
 
-    private static List<String> predictDisease(List<String> userSymptoms) {
-        List<String> predictedDiseases = new ArrayList<>();
+    private static java.util.List<String> predictDisease(java.util.List<String> userSymptoms) {
+        java.util.List<String> predictedDiseases = new ArrayList<>();
         for (String symptom : userSymptoms) {
             if (symptoms.containsKey(symptom)) {
                 predictedDiseases.add(symptoms.get(symptom));
@@ -153,8 +165,8 @@ public class SymptomChecker {
         return predictedDiseases;
     }
 
-    private static List<String> getRecommendedRemedies(List<String> predictedDiseases) {
-        List<String> recommendedRemedies = new ArrayList<>();
+    private static java.util.List<String> getRecommendedRemedies(java.util.List<String> predictedDiseases) {
+        java.util.List<String> recommendedRemedies = new ArrayList<>();
         for (String disease : predictedDiseases) {
             if (symptomRemedyMapping.containsKey(disease)) {
                 recommendedRemedies.addAll(symptomRemedyMapping.get(disease));
@@ -163,4 +175,3 @@ public class SymptomChecker {
         return recommendedRemedies;
     }
 }
-
