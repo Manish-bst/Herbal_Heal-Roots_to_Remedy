@@ -9,7 +9,6 @@ import java.util.*;
 
 public class SymptomChecker {
     private static final String SYMPTOM_FILE = "symptoms.txt";
-
     private static Map<String, String> symptoms = new HashMap<>();
     private static Map<String, String> remedies = new HashMap<>();
     private static Map<String, java.util.List<String>> symptomRemedyMapping = new HashMap<>();
