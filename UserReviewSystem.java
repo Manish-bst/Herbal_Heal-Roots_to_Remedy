@@ -107,7 +107,6 @@ public class UserReviewSystem {
         reviewPanel.add(tabbedPane1, BorderLayout.CENTER);
         tabbedPane.addTab("User   Review System", reviewPanel);
     }
-
     private int extractRating(String line) {
         try {
             String[] parts = line.split(" - Rating: ");
