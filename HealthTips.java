@@ -202,7 +202,6 @@ public class HealthTips {
         }
         writer.write("\n");
     }
-
     private void displayHealthTips(String selected, JTextArea tipsArea) {
         try (Scanner fileScanner = new Scanner(new File(FILE_NAME))) {
             boolean found = false;
