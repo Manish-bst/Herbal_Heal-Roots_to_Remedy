@@ -14,19 +14,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source> <!-- Compatibility with JDK 8 -->
         <maven.compiler.target>1.8</maven.compiler.target> <!-- Compatibility with JDK 8 -->
-        <spring-boot.version>2.5.6</spring-boot.version> <!-- Spring Boot version -->
-        <exec.mainClass>com.mycompany.herbal_heal_roots_to_remedy.Herbal_Heal_Roots_to_Remedy</exec.mainClass>
+        <exec.mainClass>com.mycompany.herbal_heal_roots_to_remedy.MainMenu</exec.mainClass>
     </properties>
 
     <!-- Dependencies -->
     <dependencies>
-        <!-- Spring Boot Starter Web Dependency for RESTful API -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-
         <!-- JSoup Dependency for HTML parsing -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -40,34 +32,11 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13</version>
         </dependency>
-
-        <!-- Spring Boot Starter Test (optional for testing purposes) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Spring Boot DevTools (optional for development purposes) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <version>${spring-boot.version}</version>
-        </dependency>
     </dependencies>
 
     <!-- Build Plugins -->
     <build>
         <plugins>
-            <!-- Spring Boot Maven Plugin to run Spring Boot applications -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-            </plugin>
-
             <!-- Maven Compiler Plugin for JDK compatibility -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -85,7 +54,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>com.mycompany.herbal_heal_roots_to_remedy.HerbalHealApplication</mainClass> <!-- Ensure this points to your main class -->
+                    <mainClass>com.mycompany.herbal_heal_roots_to_remedy.MainMenu</mainClass>
                 </configuration>
             </plugin>
         </plugins>
