@@ -75,7 +75,6 @@ public class DiseaseInformation {
             protected String doInBackground() {
                 return getDiseaseInformation(diseaseName);
             }
-
             @Override
             protected void done() {
                 try {
