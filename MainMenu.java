@@ -18,6 +18,7 @@ public class MainMenu extends JFrame {
     private JLabel welcomeLabel;
     private JLabel messageLabel;
 
+
     public MainMenu() {
         super("Herbal Heal Roots to Remedy");
         setSize(800, 600);
