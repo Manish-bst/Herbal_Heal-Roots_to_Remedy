@@ -223,7 +223,6 @@ public class HealthTips {
             } else {
                 tipsArea.setText(tips.toString());
             }
-
         } catch (IOException e) {
             tipsArea.setText("Error reading health tips file: " + e.getMessage());
         }
