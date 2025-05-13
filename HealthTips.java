@@ -218,6 +218,7 @@ public class HealthTips {
                     tips.append(line).append("\n");
                 }
             }
+            
             if (!found) {
                 tipsArea.setText("Health tips for " + selected + " not found.");
             } else {
