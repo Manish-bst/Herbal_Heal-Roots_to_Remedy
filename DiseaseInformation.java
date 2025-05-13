@@ -65,7 +65,6 @@ public class DiseaseInformation {
 
         tabbedPane.addTab("Disease Information", diseaseInfoPanel);
     }
-
     // Asynchronous fetch using SwingWorker (Java 8 compatible)
     private void fetchDiseaseInformationAsync(String diseaseName, JTextArea resultTextArea) {
         resultTextArea.setText("Fetching information for: " + diseaseName + "...\n");
