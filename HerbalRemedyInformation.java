@@ -76,7 +76,6 @@ public class HerbalRemedyInformation {
                 }
             }
         });
-
         tabbedPane.addTab("Herbal Remedy Information", herbalRemedyPanel);
     }
     private String getHerbInformation(String herbName) {
