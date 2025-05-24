@@ -216,6 +216,7 @@ public class HealthTips {
                     break;
                 } else if (found) {
                     tips.append(line).append("\n");
+               
                 }
             }
             if (!found) {
