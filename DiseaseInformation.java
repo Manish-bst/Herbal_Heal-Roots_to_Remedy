@@ -86,7 +86,6 @@ public class DiseaseInformation {
         };
         worker.execute();
     }
-
     // Method to fetch disease info from Wikipedia
     public String getDiseaseInformation(String diseaseName) {
         try {
