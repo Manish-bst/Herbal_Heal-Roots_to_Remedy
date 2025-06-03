@@ -86,7 +86,6 @@ public class HerbalRemedyInformation {
             return "Error: Unable to fetch herb information. " + e.getMessage();
         }
     }
-
     private String fetchHerbInfoFromWikipedia(String url) {
         try {
             Document doc = Jsoup.connect(url).get();
