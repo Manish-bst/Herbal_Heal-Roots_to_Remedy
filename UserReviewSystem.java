@@ -96,7 +96,6 @@ public class UserReviewSystem {
                 }
             }
         });
-
         readPanel.add(displayScroll, BorderLayout.CENTER);
         readPanel.add(loadButton, BorderLayout.SOUTH);
 
