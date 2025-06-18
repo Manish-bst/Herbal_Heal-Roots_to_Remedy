@@ -206,7 +206,6 @@ public class HealthTips {
         try (Scanner fileScanner = new Scanner(new File(FILE_NAME))) {
             boolean found = false;
             StringBuilder tips = new StringBuilder();
-
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 if (line.contains(selected)) {
