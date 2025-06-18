@@ -55,12 +55,10 @@ public class HerbalRemedyInformation {
                 if (!herbName.isEmpty()) {
                     resultTextArea.setText("Fetching data for: " + herbName + "...\n");
                     SwingWorker<String, Void> worker = new SwingWorker<String, Void>() {
-
                         @Override
                         protected String doInBackground() {
                             return getHerbInformation(herbName);
                         }
-
                         @Override
                         protected void done() {
                             try {
