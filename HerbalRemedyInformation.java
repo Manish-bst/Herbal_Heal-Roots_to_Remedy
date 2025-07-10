@@ -106,5 +106,6 @@ public class HerbalRemedyInformation {
         } catch (Exception e) {
             return "Error occurred while fetching from Wikipedia: " + e.getMessage();
         }
+   
     }
 }
