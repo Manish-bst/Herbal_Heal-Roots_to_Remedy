@@ -117,7 +117,6 @@ public class UserRegistration {
             }
         }
     }
-    
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
