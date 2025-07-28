@@ -194,7 +194,6 @@ public class HealthTips {
             }
         }
     }
-
     private void writeSection(FileWriter writer, String header, String[] tips) throws IOException {
         writer.write(header + ":\n");
         for (int i = 0; i < tips.length; i++) {
