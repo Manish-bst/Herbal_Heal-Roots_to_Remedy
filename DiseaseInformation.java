@@ -109,5 +109,4 @@ public class DiseaseInformation {
             return "Error: Unable to fetch disease information.\n" + e.getMessage();
         }
     }
-    
 }
