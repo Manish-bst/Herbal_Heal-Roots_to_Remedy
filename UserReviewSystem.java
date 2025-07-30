@@ -102,7 +102,6 @@ public class UserReviewSystem {
         JTabbedPane tabbedPane1 = new JTabbedPane();
         tabbedPane1.addTab("Write Review", writePanel);
         tabbedPane1.addTab("Read Reviews", readPanel);
-
         reviewPanel.add(tabbedPane1, BorderLayout.CENTER);
         tabbedPane.addTab("User   Review System", reviewPanel);
     }
