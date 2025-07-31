@@ -98,7 +98,6 @@ public class UserRegistration {
             String password = new String(passwordField.getPassword());
             try {
                 Scanner fileScanner = new Scanner(new File(FILE_NAME));
-
                 while (fileScanner.hasNextLine()) {
                     String line = fileScanner.nextLine();
                     String[] credentials = line.split(":");
