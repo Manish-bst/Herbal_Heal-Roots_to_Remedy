@@ -1,7 +1,6 @@
 package com.mycompany.herbal_heal_roots_to_remedy;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -20,30 +19,37 @@ public class UserRegistration {
     private JPasswordField confirmPasswordField;
     private JButton registerButton;
 
+    // Method to create the users file if it doesn't exist
+    private static void ensureUsersFileExists() {
+        File file = new File(FILE_NAME);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating users file: " + e.getMessage());
+            }
+        }
+    }
+
     public void createLoginPanel(JPanel loginPanel) {
+        ensureUsersFileExists();  // Ensure file is there when setup starts
         this.loginPanel = loginPanel;
 
-        // Create username label and field
         JLabel usernameLabel = new JLabel("Username:");
         usernameField = new JTextField(20);
 
-        // Create password label and field
         JLabel passwordLabel = new JLabel("Password:");
         passwordField = new JPasswordField(20);
 
-        // Create confirm password label and field
         JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
         confirmPasswordField = new JPasswordField(20);
 
-        // Create register button
         registerButton = new JButton("Register");
         registerButton.addActionListener(new RegisterButtonListener());
 
-        // Create login button
         loginButton = new JButton("Login");
         loginButton.addActionListener(new LoginButtonListener());
 
-        // Add components to panel
         loginPanel.add(usernameLabel);
         loginPanel.add(usernameField);
         loginPanel.add(passwordLabel);
@@ -62,19 +68,17 @@ public class UserRegistration {
             String confirmPassword = new String(confirmPasswordField.getPassword());
 
             if (password.equals(confirmPassword)) {
- try {
+                try {
                     Scanner fileScanner = new Scanner(new File(FILE_NAME));
-
                     while (fileScanner.hasNextLine()) {
                         String line = fileScanner.nextLine();
                         String[] credentials = line.split(":");
-
                         if (credentials[0].equals(username)) {
                             JOptionPane.showMessageDialog(loginPanel, "Username already exists. Please choose a different username.");
+                            fileScanner.close();
                             return;
                         }
                     }
-
                     fileScanner.close();
 
                     FileWriter writer = new FileWriter(FILE_NAME, true);
@@ -96,34 +100,31 @@ public class UserRegistration {
         public void actionPerformed(ActionEvent e) {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
+
             try {
                 Scanner fileScanner = new Scanner(new File(FILE_NAME));
                 while (fileScanner.hasNextLine()) {
                     String line = fileScanner.nextLine();
                     String[] credentials = line.split(":");
-
                     if (credentials[0].equals(username) && credentials[1].equals(password)) {
                         JOptionPane.showMessageDialog(loginPanel, "Login successful!");
                         isLoggedIn = true;
+                        fileScanner.close();
                         return;
                     }
                 }
+                fileScanner.close();
                 JOptionPane.showMessageDialog(loginPanel, "Invalid username or password. Please try again.");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(loginPanel, "Error logging in: " + ex.getMessage());
             }
         }
     }
+
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
-public JTextField getUsernameField() {
-    return usernameField;
-}
-public void setLoggedIn(boolean isLoggedIn) {
-    this.isLoggedIn = isLoggedIn;
-}
-    public JButton getLoginButton() {
-        return loginButton;
-    }
+    public JTextField getUsernameField() { return usernameField; }
+    public void setLoggedIn(boolean isLoggedIn) { this.isLoggedIn = isLoggedIn; }
+    public JButton getLoginButton() { return loginButton; }
 }
