@@ -1,2 +1,3 @@
 # Herbal_Heal-Roots_to_Remedy
- This project will help the youth of today to know about various herbal meditions
+ This project will help the youth of today to know about various herbal meditions and generate the personal health care plane
+ 
