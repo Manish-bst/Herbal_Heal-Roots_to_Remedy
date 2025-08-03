@@ -28,7 +28,6 @@ public class DiseaseInformation {
         JButton fetchButton = new JButton("Fetch Information");
         fetchButton.setBackground(Color.decode("#4CAF50")); // Green color
         fetchButton.setForeground(Color.WHITE);
-
         topPanel.add(diseaseLabel);
         topPanel.add(diseaseField);
         topPanel.add(fetchButton);
