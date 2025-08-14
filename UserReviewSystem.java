@@ -98,6 +98,7 @@ public class UserReviewSystem {
         });
         readPanel.add(displayScroll, BorderLayout.CENTER);
         readPanel.add(loadButton, BorderLayout.SOUTH);
+        
         JTabbedPane tabbedPane1 = new JTabbedPane();
         tabbedPane1.addTab("Write Review", writePanel);
         tabbedPane1.addTab("Read Reviews", readPanel);
