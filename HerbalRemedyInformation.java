@@ -105,6 +105,7 @@ public class HerbalRemedyInformation {
             return "No detailed information found for this herb.";
         } catch (Exception e) {
             return "Error occurred while fetching from Wikipedia: " + e.getMessage();
-        }  
+        }
+          
     }
 }
