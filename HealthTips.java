@@ -31,7 +31,6 @@ public class HealthTips {
         JButton showTipsButton = new JButton("Show Tips");
         showTipsButton.setBackground(Color.decode("#4CAF50")); // Green color
         showTipsButton.setForeground(Color.WHITE);
-
         topPanel.add(tipsLabel);
         topPanel.add(categoryComboBox);
         topPanel.add(showTipsButton);
@@ -63,7 +62,6 @@ public class HealthTips {
 
         generateFileIfNeeded();
     }
-
     private void generateFileIfNeeded() {
         File file = new File(FILE_NAME);
         if (!file.exists()) {
