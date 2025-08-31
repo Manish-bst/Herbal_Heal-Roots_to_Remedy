@@ -59,7 +59,6 @@ public class UserRegistration {
         loginPanel.add(registerButton);
         loginPanel.add(loginButton);
     }
-
     private class RegisterButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
