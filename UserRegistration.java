@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class UserRegistration {
     private static final String FILE_NAME = "users.txt";
     private boolean isLoggedIn = false;
-
     private JPanel loginPanel;
     private JButton loginButton;
     private JTextField usernameField;
@@ -30,7 +29,6 @@ public class UserRegistration {
             }
         }
     }
-
     public void createLoginPanel(JPanel loginPanel) {
         ensureUsersFileExists();  // Ensure file is there when setup starts
         this.loginPanel = loginPanel;
