@@ -83,7 +83,6 @@ public class UserReviewSystem {
                     displayArea.setText("No reviews available yet.");
                     return;
                 }
-
                 try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                     String line;
                     while ((line = br.readLine()) != null) {
