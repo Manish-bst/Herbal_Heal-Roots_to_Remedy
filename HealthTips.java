@@ -45,7 +45,6 @@ public class HealthTips {
 
         JScrollPane scrollPane = new JScrollPane(resultTextArea);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
         healthTipsPanel.add(topPanel, BorderLayout.NORTH);
         healthTipsPanel.add(scrollPane, BorderLayout.CENTER);
 
