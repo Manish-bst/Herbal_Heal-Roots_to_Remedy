@@ -43,7 +43,6 @@ public class HerbalRemedyInformation {
 
         JScrollPane scrollPane = new JScrollPane(resultTextArea);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
         herbalRemedyPanel.add(topPanel, BorderLayout.NORTH);
         herbalRemedyPanel.add(scrollPane, BorderLayout.CENTER);
 
