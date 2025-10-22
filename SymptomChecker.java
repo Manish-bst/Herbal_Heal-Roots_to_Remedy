@@ -14,7 +14,6 @@ public class SymptomChecker {
     private static Map<String, java.util.List<String>> symptomRemedyMapping = new HashMap<>();
     private static Map<String, String> remedyUses = new HashMap<>();
     private static Map<String, String> remedyTime = new HashMap<>();
-
     private JCheckBox[] symptomCheckBoxes;
     private JButton submitButton;
     private JTextArea resultTextArea;
