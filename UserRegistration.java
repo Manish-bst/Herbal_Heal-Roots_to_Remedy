@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
 public class UserRegistration {
     private static final String FILE_NAME = "users.txt";
     private boolean isLoggedIn = false;
