@@ -64,7 +64,6 @@ public class UserReviewSystem {
         // Read Review Panel
         JPanel readPanel = new JPanel(new BorderLayout());
         readPanel.setBackground(Color.decode("#F7DC6F")); // Light orangeish color
-
         JTextArea displayArea = new JTextArea();
         displayArea.setEditable(false);
         displayArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
