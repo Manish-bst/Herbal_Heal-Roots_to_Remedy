@@ -1,5 +1,4 @@
 package com.mycompany.herbal_heal_roots_to_remedy;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,6 @@ public class HealthTips {
         "Chronic Conditions", "Allergic Reactions", "Respiratory Infections", "Skin Conditions",
         "Autoimmune Diseases"
     };
-
     public void createHealthTipsPanel(JTabbedPane tabbedPane) {
         JPanel healthTipsPanel = new JPanel();
         healthTipsPanel.setLayout(new BorderLayout());
