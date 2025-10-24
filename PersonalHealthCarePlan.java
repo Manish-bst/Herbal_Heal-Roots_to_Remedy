@@ -141,7 +141,6 @@ public class PersonalHealthCarePlan {
                     JOptionPane.showMessageDialog(healthCarePlanPanel, "Please enter valid age and weight.");
                     return;
                 }
-
                 String selectedDiseaseName = (String) diseaseComboBox.getSelectedItem();
                 String diseaseKey = null;
                 for (String key : diseases.keySet()) {
@@ -155,7 +154,6 @@ public class PersonalHealthCarePlan {
                     JOptionPane.showMessageDialog(healthCarePlanPanel, "Selected disease not found.");
                     return;
                 }
-
                 String remedy = remedies.get(diseaseKey);
                 String remedyDescription = remedyDescriptions.get(diseaseKey);
                 String remedyConsumptionTime = remedyConsumptionTimes.get(diseaseKey);
