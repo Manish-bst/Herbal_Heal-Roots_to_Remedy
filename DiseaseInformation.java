@@ -21,7 +21,6 @@ public class DiseaseInformation {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
         topPanel.setBackground(Color.decode("#F7DC6F")); // Light orangeish color
-
         JLabel diseaseLabel = new JLabel("Enter Disease Name:");
         diseaseLabel.setForeground(Color.decode("#008000")); // Dark green color
         JTextField diseaseField = new JTextField(20);
