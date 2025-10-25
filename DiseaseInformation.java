@@ -38,7 +38,6 @@ public class DiseaseInformation {
         resultTextArea.setWrapStyleWord(true);
         resultTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
         resultTextArea.setForeground(Color.decode("#333333")); // Dark gray color
-
         JScrollPane scrollPane = new JScrollPane(resultTextArea);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
