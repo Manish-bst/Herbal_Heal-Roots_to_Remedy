@@ -28,7 +28,6 @@ public class HerbalRemedyInformation {
         JButton fetchHerbButton = new JButton("Fetch Herb Information");
         fetchHerbButton.setBackground(Color.decode("#4CAF50")); // Green color
         fetchHerbButton.setForeground(Color.WHITE);
-
         topPanel.add(herbLabel);
         topPanel.add(herbField);
         topPanel.add(fetchHerbButton);
