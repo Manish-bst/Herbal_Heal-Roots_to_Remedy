@@ -149,7 +149,6 @@ public class PersonalHealthCarePlan {
                         break;
                     }
                 }
-
                 if (diseaseKey == null) {
                     JOptionPane.showMessageDialog(healthCarePlanPanel, "Selected disease not found.");
                     return;
