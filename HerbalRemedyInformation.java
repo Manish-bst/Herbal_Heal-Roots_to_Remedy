@@ -24,6 +24,7 @@ public class HerbalRemedyInformation {
 
         JLabel herbLabel = new JLabel("Enter Herb Name:");
         herbLabel.setForeground(Color.decode("#008000")); // Dark green color
+        
         JTextField herbField = new JTextField(20);
         JButton fetchHerbButton = new JButton("Fetch Herb Information");
         fetchHerbButton.setBackground(Color.decode("#4CAF50")); // Green color
