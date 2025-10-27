@@ -96,6 +96,7 @@ public class UserRegistration {
         public void actionPerformed(ActionEvent e) {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
+            
             try {
                 Scanner fileScanner = new Scanner(new File(FILE_NAME));
                 while (fileScanner.hasNextLine()) {
