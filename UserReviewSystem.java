@@ -72,6 +72,7 @@ public class UserReviewSystem {
         JButton loadButton = new JButton("Load Reviews");
         loadButton.setBackground(Color.decode("#4CAF50")); // Green color
         loadButton.setForeground(Color.WHITE);
+        
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
