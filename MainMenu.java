@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-
 public class MainMenu extends JFrame {
     private JTabbedPane tabbedPane;
     private UserRegistration userRegistration;
