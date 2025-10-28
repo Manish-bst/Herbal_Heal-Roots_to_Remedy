@@ -17,7 +17,6 @@ public class HerbalRemedyInformation {
         herbalRemedyPanel.setBackground(Color.decode("#C9E4CA")); // Light greenish color
 
         // Top input panel
-        
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
         topPanel.setBackground(Color.decode("#F7DC6F")); // Light orangeish color
