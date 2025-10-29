@@ -108,6 +108,7 @@ public class UserRegistration {
                         return;
                     }
                 }
+                
                 fileScanner.close();
                 JOptionPane.showMessageDialog(loginPanel, "Invalid username or password. Please try again.");
             } catch (IOException ex) {
