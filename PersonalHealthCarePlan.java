@@ -166,7 +166,6 @@ public class PersonalHealthCarePlan {
                 String exerciseBenefit = exerciseBenefits.get(diseaseKey);
                 String exerciseDuration = exerciseDurations.get(diseaseKey);
                 String asanas = yogaAsanas.get(diseaseKey);
-
                 StringBuilder plan = new StringBuilder();
                 plan.append("Personal Health Care Plan for ").append(patientName).append("\n");
                 plan.append("Age: ").append(age).append("\n");
