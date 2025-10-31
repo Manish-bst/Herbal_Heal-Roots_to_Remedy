@@ -23,6 +23,7 @@ public class MainMenu extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        
         // Create welcome label
         welcomeLabel = new JLabel();
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
