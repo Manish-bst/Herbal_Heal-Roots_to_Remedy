@@ -17,7 +17,6 @@ public class HealthTips {
         JPanel healthTipsPanel = new JPanel();
         healthTipsPanel.setLayout(new BorderLayout());
         healthTipsPanel.setBackground(Color.decode("#C9E4CA")); // Light greenish color
-
         // Top input panel
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
