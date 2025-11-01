@@ -28,7 +28,6 @@ public class MainMenu extends JFrame {
         welcomeLabel = new JLabel();
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
         welcomeLabel.setForeground(Color.decode("#008000")); // Dark green color
-
         // Create message label
         messageLabel = new JLabel();
         messageLabel.setFont(new Font("Arial", Font.PLAIN, 14));
