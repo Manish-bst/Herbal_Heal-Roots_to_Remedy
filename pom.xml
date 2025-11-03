@@ -56,7 +56,6 @@
                 <configuration>
                     <mainClass>com.mycompany.herbal_heal_roots_to_remedy.MainMenu</mainClass>
                 </configuration>
-                
             </plugin>
         </plugins>
     </build>
