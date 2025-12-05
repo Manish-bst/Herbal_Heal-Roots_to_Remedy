@@ -1,5 +1,4 @@
 package com.mycompany.herbal_heal_roots_to_remedy;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
